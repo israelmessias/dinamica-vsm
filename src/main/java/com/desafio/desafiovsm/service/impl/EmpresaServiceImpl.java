@@ -60,4 +60,31 @@ public class EmpresaServiceImpl implements EmpresaService {
 
         return empresa;
     }
+
+    @Override
+    public Empresa buscarPorCnpjCpf(Integer cpfCnpj) {
+        // TODO Auto-generated method stub
+        Optional<Empresa> empresa;
+        if(cpfCnpj.toString().length() == 14){
+            String cnpjFormado = cpfCnpj.toString().substring(0,2)+"."
+                    +cpfCnpj.toString().substring(2,5)+"."
+                    +cpfCnpj.toString().substring(5,8)+"/"
+                    +cpfCnpj.toString().substring(8,12)+"-"
+                    +cpfCnpj.toString().substring(12,14);
+            
+            empresa = repository.findByCnpj(cnpjFormado);
+            return empresa.get();
+        }else if(cpfCnpj.toString().length() == 11){
+            String cpfFormado = cpfCnpj.toString().substring(0,3)+"."
+                    +cpfCnpj.toString().substring(3,6)+"."
+                    +cpfCnpj.toString().substring(6,9)+"-"
+                    +cpfCnpj.toString().substring(9,11);
+            empresa = repository.findByCpf(cpfFormado);
+            return empresa.get();
+        }else{
+            new EmpresaError("CNPJ inválido");
+        }
+        return null;
+        
+    }
 }

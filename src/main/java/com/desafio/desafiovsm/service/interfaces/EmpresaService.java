@@ -9,4 +9,6 @@ public interface EmpresaService {
     Optional<Empresa> obterPorId(Long id);
 
     Empresa conveterDto(EmpresaDTO empresaDTO);
+
+    Empresa buscarPorCnpjCpf(Integer cpfCnpj);
 }
