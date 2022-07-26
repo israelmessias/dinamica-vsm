@@ -10,5 +10,7 @@ public interface EmpresaService {
 
     Empresa conveterDto(EmpresaDTO empresaDTO);
 
-    Empresa buscarPorCnpjCpf(Integer cpfCnpj);
+    Empresa buscarPorCnpjCpf(Long cpfCnpj);
+
+    Empresa buscarPorCnpjCpf(String cpfCnpj);
 }
