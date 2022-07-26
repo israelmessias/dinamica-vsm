@@ -35,7 +35,7 @@ public class EmpresaServiceImpl implements EmpresaService {
         empresa.setCep(empresaDTO.getCep());
         empresa.setTelefone(empresaDTO.getTelefone());
 
-        System.out.println(empresaDTO.getCpf());
+        
         if (empresaDTO.getCpf().toString().length() == 11){
             String cpfFormado = empresaDTO.getCpf().toString().substring(0,3)+"."
                     +empresaDTO.getCpf().toString().substring(3,6)+"."
@@ -66,8 +66,8 @@ public class EmpresaServiceImpl implements EmpresaService {
     public Empresa buscarPorCnpjCpf(Long cpfCnpj) {
         // TODO Auto-generated method stub
         Optional<Empresa> empresa;
-        System.out.println(contarNumeros(cpfCnpj));
-        if(contarNumeros(cpfCnpj) == 14){
+        System.out.println(contarLinhas(cpfCnpj.toString()));
+        if(contarLinhas(cpfCnpj.toString()) == 14){
             System.out.println();
             String cnpjFormado = cpfCnpj.toString().substring(0,2)+"."
                     +cpfCnpj.toString().substring(2,5)+"."
@@ -77,7 +77,7 @@ public class EmpresaServiceImpl implements EmpresaService {
             
             empresa = repository.findByCnpj(cnpjFormado);
             return empresa.get();
-        }else if(contarNumeros(cpfCnpj) == 11){
+        }else if(contarLinhas(cpfCnpj.toString()) == 11){
             String cpfFormado = cpfCnpj.toString().substring(0,3)+"."
                     +cpfCnpj.toString().substring(3,6)+"."
                     +cpfCnpj.toString().substring(6,9)+"-"
@@ -93,17 +93,16 @@ public class EmpresaServiceImpl implements EmpresaService {
     public Empresa buscarPorCnpjCpf(String cpfCnpj) {
         Optional<Empresa> empresa;
 
-        System.out.println(contarLinhas(cpfCnpj));
         if(contarLinhas(cpfCnpj) == 14){
 
             empresa = repository.findByCpf(cpfCnpj);
             return empresa.get();
         }else if (contarLinhas(cpfCnpj) == 18){
-            System.out.println("2");
+            
             empresa = repository.findByCnpj(cpfCnpj);
             return empresa.get();
         }else {
-            System.out.println("3");
+            
             throw new EmpresaError("Valor inválido, digite um cpf ou cnpj valido!");
         }
     }
@@ -117,13 +116,5 @@ public class EmpresaServiceImpl implements EmpresaService {
         return count;
     }
 
-    private Long contarNumeros(Long numeros){
-        Long count = 0L;
-        for (count = 1L; count == numeros; count++) {
-            System.out.println(count);
-        }
-
-        return count;
-    }
 
 }
